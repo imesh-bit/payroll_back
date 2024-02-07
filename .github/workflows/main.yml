@@ -19,6 +19,8 @@ jobs:
         java-version: '11'  # Adjust the Java version if needed
         distribution: 'adopt'  # Specify the distribution, e.g., adopt, adopt-hotspot, adopt-openj9, etc.
 
+    - name: List Java source files
+      run: ls -l src/java
     - name: Compile Java source files
       run: |
         javac -d classes -classpath "lib/*" src/java/*.java
