@@ -32,7 +32,8 @@ jobs:
         curl -L -o lib/mysql-connector-java-8.0.15.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.15/mysql-connector-java-8.0.15.jar
         
     - name: Compile Java source files
-      run: javac -d payroll_back-master/src/java/classes -classpath "lib/*" @sources.txt
+       javac -d classes -classpath "lib/*:path/to/servlet-api.jar" @sources.txt
+
 
     - name: Create WAR file
       run: jar -cvf your-web-app.war -C web .
