@@ -1,0 +1,27 @@
+name: Java EE Build and Deploy
+
+on:
+  push:
+    branches:
+      - main  # Adjust the branch name if needed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'  # Adjust the Java version if needed
+
+    - name: Compile Java source files
+      run: |
+        javac -d classes -classpath "lib/*" src/*.java
+
+    - name: Create WAR file
+      run: |
+        jar -cvf your-web-app.war -C web .
