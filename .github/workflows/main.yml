@@ -16,12 +16,19 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
-        java-version: '8'  # Adjust the Java version if needed
+        java-version: '11'  # Adjust the Java version if needed
         distribution: 'adopt'  # Specify the distribution, e.g., adopt, adopt-hotspot, adopt-openj9, etc.
         
     - name: Find Java source files
       run: find payroll_back-master/src/java -name "*.java" > sources.txt
       
+    - name: Filter Java source files
+      run: |
+        # Add your filtering logic here if needed
+        # For example, you can filter out certain files based on conditions
+        # This command simply copies all source files to the filtered_sources.txt file
+        cp sources.txt filtered_sources.txt
+        
     - name: Install dependencies
       run: |
         mkdir lib
