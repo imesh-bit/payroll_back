@@ -1,0 +1,784 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="payslip" pageWidth="421" pageHeight="595" columnWidth="381" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empid" class="java.lang.String"/>
+	<parameter name="monthcode" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     payroll.`monthcode` AS payroll_monthcode,
+     payroll.`empid` AS payroll_empid,
+     payroll.`status` AS payroll_status,
+     payroll.`categoryid` AS payroll_categoryid,
+     payroll.`groupid` AS payroll_groupid,
+     payroll.`typofemp` AS payroll_typofemp,
+     payroll.`division` AS payroll_division,
+     payroll.`designation` AS payroll_designation,
+     payroll.`salarytyp` AS payroll_salarytyp,
+     payroll.`basicsalary` AS payroll_basicsalary,
+     IFNULL(payroll.`basicarreas`,0) AS payroll_basicarreas,
+     IFNULL(payroll.`budgetallowance`,0) AS payroll_budgetallowance,
+     IFNULL(payroll.`bra2`,0) AS payroll_bra2,
+     (payroll.`basicsalary`+payroll.`budgetallowance`+payroll.`bra2`+payroll.`basicarreas`+payroll.`allow3`-payroll.`nopay`-payroll.`paycut`) as TotalForEpf,
+ ( payroll.`allow1`+   payroll.`allow2`+payroll.`allow4`+payroll.`allow5`+ payroll.`bonus`+payroll.`otpay`) as TotalNonEpf,
+     payroll.`noofattendents` AS payroll_noofattendents,
+     payroll.`bonus` AS payroll_bonus,
+     payroll.`nopaydates` AS payroll_nopaydates,
+     payroll.`allow1_name` AS payroll_allow1_name,
+     payroll.`allow1` AS payroll_allow1,
+     payroll.`allow2_name` AS payroll_allow2_name,
+     payroll.`allow2` AS payroll_allow2,
+     payroll.`allow3_name` AS payroll_allow3_name,
+     IFNULL(payroll.`allow3`,0) AS payroll_allow3,
+     payroll.`allow4_name` AS payroll_allow4_name,
+     payroll.`allow4` AS payroll_allow4,
+     payroll.`allow5_name` AS payroll_allow5_name,
+     payroll.`allow5` AS payroll_allow5,
+     ( payroll.`allow4`+ payroll.`allow5`) as TotalOtherAllowance,
+     IFNULL(payroll.`nopay`,0) AS payroll_nopay,
+     IFNULL(payroll.`paycut`,0) AS payroll_paycut,
+     payroll.`saladvance` AS payroll_saladvance,
+     payroll.`otpay` AS payroll_otpay,
+     payroll.`loanid` AS payroll_loanid,
+     payroll.`loanvalue` AS payroll_loanvalue,
+     payroll.`deduct1_name` AS payroll_deduct1_name,
+     payroll.`deduct1` AS payroll_deduct1,
+     payroll.`deduct2_name` AS payroll_deduct2_name,
+     payroll.`deduct2` AS payroll_deduct2,
+     payroll.`deduct3_name` AS payroll_deduct3_name,
+     payroll.`deduct3` AS payroll_deduct3,
+     payroll.`deduct4_name` AS payroll_deduct4_name,
+     payroll.`deduct4` AS payroll_deduct4,
+     payroll.`deduct5_name` AS payroll_deduct5_name,
+     payroll.`deduct5` AS payroll_deduct5,
+     payroll.`paye` AS payroll_paye,
+     payroll.`etf` AS payroll_etf,
+     payroll.`epf8` AS payroll_epf8,
+     payroll.`epf12` AS payroll_epf12,
+     payroll.`grossalary` AS payroll_grossalary,
+     payroll.`netsalary` AS payroll_netsalary,
+     payroll.`user` AS payroll_user,
+     payroll.`comcode` AS payroll_comcode,
+     payroll.`activate` AS payroll_activate,
+     payroll.`sysdatetime` AS payroll_sysdatetime,
+     payroll.`remark` AS payroll_remark,
+     payroll.`noncash1_name` AS payroll_noncash1_name,
+     payroll.`noncash1` AS payroll_noncash1,
+     payroll.`noncash2_name` AS payroll_noncash2_name,
+     payroll.`noncash2` AS payroll_noncash2,
+     payroll.`noncash3_name` AS payroll_noncash3_name,
+     payroll.`noncash3` AS payroll_noncash3,
+     payroll.`noncash4_name` AS payroll_noncash4_name,
+     payroll.`noncash4` AS payroll_noncash4,
+     payroll.`noncash5_name` AS payroll_noncash5_name,
+     payroll.`noncash5` AS payroll_noncash5,
+     payroll.`noncash6_name` AS payroll_noncash6_name,
+     payroll.`noncash6` AS payroll_noncash6,
+     payroll.`noncash7_name` AS payroll_noncash7_name,
+     payroll.`noncash7` AS payroll_noncash7,
+     payroll.`noncash8_name` AS payroll_noncash8_name,
+     payroll.`noncash8` AS payroll_noncash8,
+     payroll.`noncash9_name` AS payroll_noncash9_name,
+     payroll.`noncash9` AS payroll_noncash9,
+     payroll.`noncash10_name` AS payroll_noncash10_name,
+     payroll.`noncash10` AS payroll_noncash10,
+     (payroll.`noncash1`+payroll.`noncash2`+payroll.`noncash3`+payroll.`noncash4`+payroll.`noncash5`+payroll.`noncash6`+payroll.`noncash7`+
+     payroll.`noncash8`+payroll.`noncash9`+payroll.`noncash10`) AS TotalNoncash,
+ (payroll.`epf8`+payroll.`saladvance`+payroll.`loanvalue`+payroll.`paye`+ payroll.`deduct1`+ payroll.`deduct2`+
+      payroll.`deduct3`+ payroll.`deduct4`+ payroll.`deduct5`) as TotalDeduction,
+(payroll.`allow1`+payroll.`allow2`+payroll.`allow4`+payroll.`allow5`) AS TotalAllowace,
+     employee_details.`empcode` AS employee_details_empcode,
+     employee_details.`empinitialname` AS employee_details_empinitialname
+FROM
+     `employee_details` employee_details RIGHT OUTER JOIN `payroll` payroll ON employee_details.`empid` = payroll.`empid`
+     AND payroll.`comcode` = employee_details.`comcode` where  payroll.`empid`=$P{empid}
+and payroll.`monthcode`=$P{monthcode}]]>
+	</queryString>
+	<field name="payroll_monthcode" class="java.lang.String"/>
+	<field name="payroll_empid" class="java.lang.Long"/>
+	<field name="payroll_status" class="java.lang.String"/>
+	<field name="payroll_categoryid" class="java.lang.String"/>
+	<field name="payroll_groupid" class="java.lang.Long"/>
+	<field name="payroll_typofemp" class="java.lang.String"/>
+	<field name="payroll_division" class="java.lang.String"/>
+	<field name="payroll_designation" class="java.lang.String"/>
+	<field name="payroll_salarytyp" class="java.lang.String"/>
+	<field name="payroll_basicsalary" class="java.math.BigDecimal"/>
+	<field name="payroll_basicarreas" class="java.math.BigDecimal"/>
+	<field name="payroll_budgetallowance" class="java.math.BigDecimal"/>
+	<field name="payroll_bra2" class="java.math.BigDecimal"/>
+	<field name="TotalForEpf" class="java.math.BigDecimal"/>
+	<field name="TotalNonEpf" class="java.math.BigDecimal"/>
+	<field name="payroll_noofattendents" class="java.math.BigDecimal"/>
+	<field name="payroll_bonus" class="java.math.BigDecimal"/>
+	<field name="payroll_nopaydates" class="java.math.BigDecimal"/>
+	<field name="payroll_allow1_name" class="java.lang.String"/>
+	<field name="payroll_allow1" class="java.math.BigDecimal"/>
+	<field name="payroll_allow2_name" class="java.lang.String"/>
+	<field name="payroll_allow2" class="java.math.BigDecimal"/>
+	<field name="payroll_allow3_name" class="java.lang.String"/>
+	<field name="payroll_allow3" class="java.math.BigDecimal"/>
+	<field name="payroll_allow4_name" class="java.lang.String"/>
+	<field name="payroll_allow4" class="java.math.BigDecimal"/>
+	<field name="payroll_allow5_name" class="java.lang.String"/>
+	<field name="payroll_allow5" class="java.math.BigDecimal"/>
+	<field name="TotalOtherAllowance" class="java.math.BigDecimal"/>
+	<field name="payroll_nopay" class="java.math.BigDecimal"/>
+	<field name="payroll_paycut" class="java.math.BigDecimal"/>
+	<field name="payroll_saladvance" class="java.math.BigDecimal"/>
+	<field name="payroll_otpay" class="java.math.BigDecimal"/>
+	<field name="payroll_loanid" class="java.lang.Integer"/>
+	<field name="payroll_loanvalue" class="java.math.BigDecimal"/>
+	<field name="payroll_deduct1_name" class="java.lang.String"/>
+	<field name="payroll_deduct1" class="java.math.BigDecimal"/>
+	<field name="payroll_deduct2_name" class="java.lang.String"/>
+	<field name="payroll_deduct2" class="java.math.BigDecimal"/>
+	<field name="payroll_deduct3_name" class="java.lang.String"/>
+	<field name="payroll_deduct3" class="java.math.BigDecimal"/>
+	<field name="payroll_deduct4_name" class="java.lang.String"/>
+	<field name="payroll_deduct4" class="java.math.BigDecimal"/>
+	<field name="payroll_deduct5_name" class="java.lang.String"/>
+	<field name="payroll_deduct5" class="java.math.BigDecimal"/>
+	<field name="payroll_paye" class="java.math.BigDecimal"/>
+	<field name="payroll_etf" class="java.math.BigDecimal"/>
+	<field name="payroll_epf8" class="java.math.BigDecimal"/>
+	<field name="payroll_epf12" class="java.math.BigDecimal"/>
+	<field name="payroll_grossalary" class="java.math.BigDecimal"/>
+	<field name="payroll_netsalary" class="java.math.BigDecimal"/>
+	<field name="payroll_user" class="java.lang.String"/>
+	<field name="payroll_comcode" class="java.lang.String"/>
+	<field name="payroll_activate" class="java.lang.Integer"/>
+	<field name="payroll_sysdatetime" class="java.sql.Timestamp"/>
+	<field name="payroll_remark" class="java.lang.String"/>
+	<field name="payroll_noncash1_name" class="java.lang.String"/>
+	<field name="payroll_noncash1" class="java.math.BigDecimal"/>
+	<field name="payroll_noncash2_name" class="java.lang.String"/>
+	<field name="payroll_noncash2" class="java.math.BigDecimal"/>
+	<field name="payroll_noncash3_name" class="java.lang.String"/>
+	<field name="payroll_noncash3" class="java.math.BigDecimal"/>
+	<field name="payroll_noncash4_name" class="java.lang.String"/>
+	<field name="payroll_noncash4" class="java.math.BigDecimal"/>
+	<field name="payroll_noncash5_name" class="java.lang.String"/>
+	<field name="payroll_noncash5" class="java.math.BigDecimal"/>
+	<field name="payroll_noncash6_name" class="java.lang.String"/>
+	<field name="payroll_noncash6" class="java.math.BigDecimal"/>
+	<field name="payroll_noncash7_name" class="java.lang.String"/>
+	<field name="payroll_noncash7" class="java.math.BigDecimal"/>
+	<field name="payroll_noncash8_name" class="java.lang.String"/>
+	<field name="payroll_noncash8" class="java.math.BigDecimal"/>
+	<field name="payroll_noncash9_name" class="java.lang.String"/>
+	<field name="payroll_noncash9" class="java.math.BigDecimal"/>
+	<field name="payroll_noncash10_name" class="java.lang.String"/>
+	<field name="payroll_noncash10" class="java.math.BigDecimal"/>
+	<field name="TotalNoncash" class="java.math.BigDecimal"/>
+	<field name="TotalDeduction" class="java.math.BigDecimal"/>
+	<field name="TotalAllowace" class="java.math.BigDecimal"/>
+	<field name="employee_details_empcode" class="java.lang.Long"/>
+	<field name="employee_details_empinitialname" class="java.lang.String"/>
+	<title>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="11" width="381" height="12"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[2nd Floor, BAM Musee Tower, No. 52, Sir Marcus Fernando Mawatha, Colombo 07.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="381" height="12"/>
+				<textElement>
+					<font size="9" isBold="true" pdfFontName="Helvetica" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Control Union Inspections (Pvt) Ltd.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="26" width="381" height="12"/>
+				<textElement lineSpacing="Single">
+					<font size="9" isBold="true" pdfFontName="Helvetica" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Payslip for the month of : "+$F{payroll_monthcode}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="527" splitType="Immediate">
+			<textField>
+				<reportElement x="47" y="1" width="75" height="13"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{payroll_empid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="188" y="1" width="63" height="13"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{employee_details_empcode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="14" width="204" height="13"/>
+				<textElement>
+					<font size="8" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{employee_details_empinitialname}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="27" width="63" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_basicsalary}.add($F{payroll_budgetallowance}).add($F{payroll_bra2})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="66" width="381" height="13"/>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="Helvetica" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Transactions for EPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1" width="47" height="13"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[EMP No: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="14" width="47" height="13"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[EMP Name: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="1" width="50" height="13"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[EPF No: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="27" width="188" height="13"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Consolidated Salary]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="79" width="188" height="13"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Pay Cut]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="92" width="188" height="13"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Nopay Deduction]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="79" width="63" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_paycut}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="92" width="63" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_nopay}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="105" width="251" height="13"/>
+				<textElement>
+					<font size="8" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Total for EPF]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="251" y="105" width="63" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{TotalForEpf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="118" width="381" height="13"/>
+				<textElement>
+					<font size="8" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Transactions Non Countable for EPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="131" width="188" height="13"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Total OT Amount]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="131" width="63" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_otpay}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="144" width="381" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Incentives]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="157" width="63" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_allow1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="170" width="63" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_allow2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="157" width="188" height="13"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{payroll_allow1_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="170" width="188" height="13"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{payroll_allow2_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="188" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_basicarreas}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Salary Arreas]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="40" width="63" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_basicarreas}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_basicarreas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="53" width="188" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_allow3}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{payroll_allow3_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="53" width="63" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_allow3}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_allow3}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="188" y="222" width="63" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="224" width="188" height="13"/>
+				<textElement>
+					<font size="8" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Total Non EPF Transactions]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="224" width="63" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{TotalNonEpf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="238" width="381" height="13"/>
+				<textElement>
+					<font size="8" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Other Deductions]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="251" width="188" height="13"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[EPF - Employee - 8.00 %]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="264" width="188" height="13"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Salary Advance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="277" width="188" height="13"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Loan Deduction]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="290" width="188" height="13"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[APIT]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="251" width="63" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_epf8}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="264" width="63" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_saladvance}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="277" width="63" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_loanvalue}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="290" width="63" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_paye}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="303" width="188" height="13" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{payroll_deduct1_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="303" width="63" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_deduct1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="316" width="188" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_deduct2}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{payroll_deduct2_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="316" width="63" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_deduct2}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_deduct2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="183" width="381" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{TotalOtherAllowance}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Other Allowance]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="196" width="188" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_allow4}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{payroll_allow4_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="209" width="188" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_allow5}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{payroll_allow5_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="196" width="63" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_allow4}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_allow4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="209" width="63" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_allow5}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_allow5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="329" width="188" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_deduct3}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{payroll_deduct3_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="342" width="188" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_deduct4}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{payroll_deduct4_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="355" width="188" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_deduct5}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{payroll_deduct5_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="329" width="63" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_deduct3}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_deduct3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="342" width="63" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_deduct4}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_deduct4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="355" width="63" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_deduct5}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_deduct5}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="368" width="188" height="13"/>
+				<textElement>
+					<font size="8" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Total Other Deductions]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="368" width="63" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{TotalDeduction}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="251" y="381" width="63" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[($F{TotalForEpf}.add($F{TotalAllowace})).subtract($F{TotalDeduction})]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="188" y="380" width="126" height="1"/>
+			</line>
+			<line>
+				<reportElement x="188" y="394" width="126" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="381" width="188" height="13"/>
+				<textElement>
+					<font size="8" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Salary Payable]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="394" width="188" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{TotalNoncash}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Non-Cash Benefits:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="407" width="188" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_noncash1}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{payroll_noncash1_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="407" width="63" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_noncash1}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_noncash1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="420" width="63" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_noncash2}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_noncash2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="420" width="188" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_noncash2}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{payroll_noncash2_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="433" width="63" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_noncash3}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_noncash3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="433" width="188" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_noncash3}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{payroll_noncash3_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="446" width="63" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_noncash4}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_noncash4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="446" width="188" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_noncash4}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{payroll_noncash4_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="459" width="63" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_noncash5}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_noncash5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="459" width="188" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{payroll_noncash5}.compareTo(BigDecimal.ZERO)!= 0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{payroll_noncash5_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="496" width="63" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_etf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="484" width="188" height="12"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[E.P.F - 12.00 %]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="496" width="188" height="12"/>
+				<textElement>
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[E.T.F - 3.00 %]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="188" y="484" width="63" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{payroll_epf12}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="472" width="188" height="12"/>
+				<textElement>
+					<font size="8" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Employer Contribution:]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>
