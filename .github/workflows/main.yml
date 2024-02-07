@@ -31,7 +31,7 @@ jobs:
         curl -L -o lib/json_simple-1.1.jar https://repo1.maven.org/maven2/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar
         curl -L -o lib/mysql-connector-java-8.0.15.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.15/mysql-connector-java-8.0.15.jar
         curl -L -o lib/jasperreports.jar https://repo1.maven.org/maven2/net/sf/jasperreports/jasperreports/6.17.0/jasperreports-6.17.0.jar
-        curl -L -o lib/jjwt.jar https://repo1.maven.org/maven2/io/jsonwebtoken/jjwt-jackson-0.11.2-javadoc.jar
+        curl -L -o lib/jjwt.jar https://repo1.maven.org/maven2/io/jsonwebtoken/jjwt-jackson/0.11.2/jjwt-jackson-0.11.2.jar
 
 
         # Download servlet-api.jar
