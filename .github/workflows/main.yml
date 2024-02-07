@@ -16,7 +16,7 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
-        java-version: '8'  # Adjust the Java version if needed
+        java-version: '11'  # Adjust the Java version if needed
         distribution: 'adopt'  # Specify the distribution, e.g., adopt, adopt-hotspot, adopt-openj9, etc.
         
     - name: Find Java source files
@@ -32,7 +32,7 @@ jobs:
         curl -L -o lib/mysql-connector-java-8.0.15.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.15/mysql-connector-java-8.0.15.jar
         
     - name: Compile Java source files
-      run: javac -d classes -classpath "lib/*" @sources.txt
+      run: javac -d payroll_back-master/src/java/classes -classpath "lib/*" @sources.txt
 
     - name: Create WAR file
       run: jar -cvf your-web-app.war -C web .
