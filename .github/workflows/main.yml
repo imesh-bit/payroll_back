@@ -20,7 +20,7 @@ jobs:
         distribution: 'adopt'  # Specify the distribution, e.g., adopt, adopt-hotspot, adopt-openj9, etc.
         
     - name: List Java source files
-      run: ls -l payroll_back-master
+      run: ls -l payroll_back-master/src
 
   
     - name: Compile Java source files
