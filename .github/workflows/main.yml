@@ -16,7 +16,7 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
-        java-version: '8'  # Adjust the Java version if needed
+        java-version: '11'  # Adjust the Java version if needed
         distribution: 'adopt'  # Specify the distribution, e.g., adopt, adopt-hotspot, adopt-openj9, etc.
         
     - name: Create lib directory
@@ -30,13 +30,17 @@ jobs:
         curl -L -o lib/json_simple-1.1.jar https://repo1.maven.org/maven2/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar
         curl -L -o lib/mysql-connector-java-8.0.15.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.15/mysql-connector-java-8.0.15.jar
         
+    - name: Create classes directory
+      run: mkdir classes
+
     - name: List Java source files
       run: ls -l payroll_back-master/src/java
 
+    - name: Find Java source files and store in sources.txt
+      run: find payroll_back-master/src/java -name "*.java" > sources.txt
+
     - name: Compile Java source files
-      run: |
-        find payroll_back-master/src/java -name "*.java" > sources.txt
-        javac -d classes -classpath "lib/*" @sources.txt
+      run: javac -d classes -classpath "lib/*" @sources.txt
 
     - name: Create WAR file
       run: |
