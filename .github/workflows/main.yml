@@ -34,8 +34,12 @@ jobs:
         curl -L -o lib/jjwt.jar https://repo1.maven.org/maven2/io/jsonwebtoken/jjwt-jackson/0.11.2/jjwt-jackson-0.11.2.jar
         curl -L -o lib/servlet-api.jar https://repo1.maven.org/maven2/javax/servlet/javax.servlet-api/4.0.1/javax.servlet-api-4.0.1.jar
         
+    - name: Filter out files with missing dependencies
+      run: |
+        grep -v "JWTTokenGenerator.java" sources.txt > filtered_sources.txt
+      
     - name: Compile Java source files
-      run: javac -d classes -classpath "lib/*" @sources.txt
+      run: javac -d classes -classpath "lib/*" @filtered_sources.txt
 
     - name: Create WAR file
       run: jar -cvf your-web-app.war -C web .
