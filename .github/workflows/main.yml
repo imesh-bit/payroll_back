@@ -32,7 +32,7 @@ jobs:
         curl -L -o lib/mysql-connector-java-8.0.15.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.15/mysql-connector-java-8.0.15.jar
         
     - name: Compile Java source files
-       javac -d classes -classpath "lib/*:path/to/servlet-api.jar" @sources.txt
+      run: javac -d classes -classpath "lib/*:path/to/servlet-api.jar" @sources.txt
 
 
     - name: Create WAR file
