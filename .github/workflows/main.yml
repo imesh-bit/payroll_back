@@ -21,7 +21,7 @@ jobs:
 
     - name: Compile Java source files
       run: |
-        javac -d classes -classpath "lib/*" src/*.java
+       javac -d classes -classpath "lib/*" src/java/**/*.java
 
     - name: Create WAR file
       run: |
