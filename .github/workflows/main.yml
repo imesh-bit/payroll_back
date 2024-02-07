@@ -16,7 +16,7 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
-        java-version: '11'  # Adjust the Java version if needed
+        java-version: '8'  # Adjust the Java version if needed
         distribution: 'adopt'  # Specify the distribution, e.g., adopt, adopt-hotspot, adopt-openj9, etc.
         
     - name: Create lib directory
@@ -29,6 +29,7 @@ jobs:
         curl -L -o lib/gson-2.3.1.jar https://repo1.maven.org/maven2/com/google/code/gson/gson/2.3.1/gson-2.3.1.jar
         curl -L -o lib/json_simple-1.1.jar https://repo1.maven.org/maven2/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar
         curl -L -o lib/mysql-connector-java-8.0.15.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.15/mysql-connector-java-8.0.15.jar
+        curl -L -o lib/servlet-api.jar https://repo1.maven.org/maven2/javax/servlet/javax.servlet-api/4.0.1/javax.servlet-api-4.0.1.jar
         
     - name: Create classes directory
       run: mkdir classes
