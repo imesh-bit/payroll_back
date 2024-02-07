@@ -22,21 +22,16 @@ jobs:
     - name: List Java source files
       run: ls -l payroll_back-master/src/java
 
-
     - name: Compile Java source files
       run: |
-       javac -d classes -classpath "lib/*" \
-       payroll_back-master/src/java/controllers/*.java \
-       payroll_back-master/src/java/dao/*.java \
-       payroll_back-master/src/java/daoImpls/*.java \
-       payroll_back-master/src/java/interfaces/*.java \
-       payroll_back-master/src/java/models/*.java \
-       payroll_back-master/src/java/threads/*.java \
-       payroll_back-master/src/java/util/*.java
-
-
-
-
+        javac -d classes -classpath "lib/*" \
+          payroll_back-master/src/java/controllers/*.java \
+          payroll_back-master/src/java/dao/*.java \
+          payroll_back-master/src/java/daoImpls/*.java \
+          payroll_back-master/src/java/interfaces/*.java \
+          payroll_back-master/src/java/models/*.java \
+          payroll_back-master/src/java/threads/*.java \
+          payroll_back-master/src/java/util/*.java
 
     - name: Create WAR file
       run: |
