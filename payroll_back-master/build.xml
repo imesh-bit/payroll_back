@@ -13,7 +13,14 @@
     </target>
 
     <target name="compile" depends="init">
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false">
+            <classpath>
+                <!-- Add your required libraries -->
+                <fileset dir="lib">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
     </target>
 
     <target name="war" depends="compile">
