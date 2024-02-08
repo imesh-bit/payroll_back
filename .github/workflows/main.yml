@@ -36,7 +36,7 @@ jobs:
       run: mkdir classes
 
     - name: Compile Java source files
-      run: javac -d classes -classpath "lib/*" @filtered_sources.txt
+      run: javac -d classes -classpath "lib/*" payroll_back-master/src/java/controllers/*.java payroll_back-master/src/java/models/*.java
       working-directory: payroll_back-master/src/java
 
     - name: Create WAR file
