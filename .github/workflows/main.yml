@@ -20,12 +20,6 @@ jobs:
         distribution: 'adopt' # Specify the distribution (e.g., adopt, zulu)
         java-package: 'jdk'
       
-
-    - name: Download JSON Web Token JAR
-      run: |
-       curl -o lib/jsonwebtoken.jar https://repo1.maven.org/maven2/io/jsonwebtoken/jjwt/0.11.2/jjwt-0.11.2.jar
-
-
       
     - name: Build with Ant
       run: ant build
