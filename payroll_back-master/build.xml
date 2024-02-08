@@ -30,8 +30,8 @@
     <target name="war" depends="compile">
     <war                                                                                                   
       needxmlfile="false"                                                                                  
-      basedir="${webroot.dir}"                                                                             
-      destfile="${build.dir}/${project.distname}.war">                                                      
+      basedir="${web.dir}"                                                                             
+      destfile="${build.dir}/${project.name}.war">                                                      
       <exclude name="WEB-INF/${build.dir}/**"/>                                                            
       <exclude name="WEB-INF/src/**"/>                                                                     
     </war>  
