@@ -1,6 +1,7 @@
 <project name="payroll_back-master" default="build" basedir=".">
     
-    <property name="src.dir" value="src/main/java"/>
+    <property name="src.dir" value="src/java"/> <!-- Adjusted src.dir -->
+
     <property name="web.dir" value="src/main/webapp"/>
     <property name="build.dir" value="build"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
