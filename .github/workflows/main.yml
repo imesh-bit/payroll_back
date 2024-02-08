@@ -1,0 +1,29 @@
+name: Java EE Build Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Setup Java
+      uses: actions/setup-java@v2
+      with:
+        java-version: '8'
+      
+    - name: Build with Ant
+      run: ant build
+      working-directory: my-java-ee-project
+
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-java-ee-project
+        path: my-java-ee-project/my-java-ee-project.war
