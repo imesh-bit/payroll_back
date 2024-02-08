@@ -28,7 +28,7 @@
     </target>
 
     <target name="war" depends="compile">
-        <war destfile="${war.file}" webxml="${web.dir}/WEB-INF/web.xml"> <!-- Corrected the path to web.xml -->
+        <war destfile="${war.file}" webxml="${basedir}/src/main/webapp/WEB-INF/web.xml"> <!-- Corrected the path to web.xml -->
             <fileset dir="${web.dir}"/>
             <classes dir="${classes.dir}"/>
         </war>
