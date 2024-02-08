@@ -1,7 +1,7 @@
 <project name="payroll_back-master" default="build" basedir=".">
     
     <!-- Define properties -->
-       <property name="src.dir" value="src/java"/>
+    <property name="src.dir" value="src/java"/>
     <property name="web.dir" value="src/main/webapp"/>
     <property name="build.dir" value="build"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
@@ -22,7 +22,11 @@
     </target>
 
     <target name="compile" depends="init">
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" includeantruntime="false"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" includeantruntime="false">
+            <!-- Exclude JWTTokenGenerator.java and any other files that depend on io.jsonwebtoken package -->
+            <exclude name="util/JWTTokenGenerator.java"/>
+            <!-- Add more exclude elements for other files if needed -->
+        </javac>
     </target>
 
     <target name="war" depends="compile">
