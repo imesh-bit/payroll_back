@@ -21,7 +21,9 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
-          java-version: '8' # Change as necessary
+          java-version: '8' # Adjust as necessary
+          distribution: 'adopt'
+          architecture: 'x64'
 
       # Compile Java source files
       - name: Compile Java files
