@@ -1,4 +1,4 @@
-<project name="MyJavaEEProject" default="build" basedir=".">
+<project name="payroll_back-master" default="build" basedir=".">
     
     <property name="src.dir" value="src/main/java"/>
     <property name="web.dir" value="src/main/webapp"/>
