@@ -22,7 +22,7 @@ jobs:
       
     - name: Build with Ant
       run: ant build
-      working-directory: my-java-ee-project
+      
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v2
