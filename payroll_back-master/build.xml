@@ -28,10 +28,13 @@
     </target>
 
     <target name="war" depends="compile">
-        <war destfile="${war.file}" webxml="${web.dir}/web/WEB-INF/web.xml"> 
-            <fileset dir="${web.dir}"/>
-            <classes dir="${classes.dir}"/>
-        </war>
+    <war                                                                                                   
+      needxmlfile="false"                                                                                  
+      basedir="${webroot.dir}"                                                                             
+      destfile="${build.dir}/${project.distname}.war">                                                      
+      <exclude name="WEB-INF/${build.dir}/**"/>                                                            
+      <exclude name="WEB-INF/src/**"/>                                                                     
+    </war>  
     </target>
     
     <target name="build" depends="war"/>
