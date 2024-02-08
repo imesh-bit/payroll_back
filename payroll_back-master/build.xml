@@ -1,19 +1,26 @@
 <project name="payroll_back-master" default="build" basedir=".">
     
-    <property name="src.dir" value="src/java"/> <!-- Adjusted src.dir -->
-
+    <!-- Define properties -->
+    <property name="src.dir" value="src/java"/>
     <property name="web.dir" value="src/main/webapp"/>
     <property name="build.dir" value="build"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
     <property name="war.file" value="my-java-ee-project.war"/>
+    <property name="lib.dir" value="lib"/>
 
+    <!-- Define classpath -->
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="*.jar"/>
+    </path>
+
+    <!-- Define targets -->
     <target name="init">
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${classes.dir}"/>
     </target>
 
     <target name="compile" depends="init">
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" includeantruntime="false"/>
     </target>
 
     <target name="war" depends="compile">
