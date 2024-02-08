@@ -46,6 +46,10 @@ jobs:
     - name: Create classes directory
       run: mkdir classes
 
+    - name: Debugging
+      run: ls -la
+      working-directory: payroll_back-master/src/java
+
     - name: Compile Java source files
       run: javac -d classes -classpath "lib/*" @filtered_sources.txt
       working-directory: payroll_back-master/src/java
