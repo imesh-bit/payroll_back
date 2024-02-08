@@ -28,7 +28,7 @@
     </target>
 
     <target name="war" depends="compile">
-        <war destfile="${war.file}" webxml="payroll_back-master/web/WEB-INF/web.xml">
+        <war destfile="${war.file}" webxml="web/WEB-INF/web.xml">
             <fileset dir="${web.dir}"/>
             <classes dir="${classes.dir}"/>
         </war>
