@@ -30,8 +30,13 @@
 
     <target name="war" depends="compile">
         <war needxmlfile="false" basedir="${web.dir}" destfile="${build.dir}/${project.name}.war">
-            <webinf dir="${web.dir}/WEB-INF"/>
-            <!-- Other exclusions or inclusions as needed -->
+            <fileset dir="${web.dir}">
+                <include name="**/*"/>
+                <exclude name="**/WEB-INF/**"/>
+            </fileset>
+            <fileset dir="${web.dir}/WEB-INF">
+                <include name="**/*.xml"/>
+            </fileset>
         </war>
     </target>
 
