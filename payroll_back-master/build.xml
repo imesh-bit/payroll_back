@@ -2,12 +2,13 @@
     
     <!-- Define properties -->
     <property name="src.dir" value="src/java"/>
-    <property name="web.dir" value="src/main/webapp"/>
+    <property name="web.dir" value="payroll_back-master/web"/>
     <property name="build.dir" value="build"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
     <property name="war.file" value="my-java-ee-project.war"/>
     <property name="lib.dir" value="lib"/>
-
+    <property name="project.name" value="payroll_back-master"/>
+       
     <!-- Define classpath -->
     <path id="classpath">
         <fileset dir="${lib.dir}" includes="*.jar"/>
@@ -27,17 +28,13 @@
         <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" includeantruntime="false"/>
     </target>
 
-     <target name="war" depends="compile">
-      <war
-      needxmlfile="false"
-      basedir="payroll_back-master/web/WEB-INF"
-      destfile="payroll_back-master/web/WEB-INF/web.xml">
-      <exclude name="WEB-INF/payroll_back-master/web/WEB-INF/**"/>
-      <exclude name="WEB-INF/src/**"/>
-      </war>  
-     </target>
+    <target name="war" depends="compile">
+        <war needxmlfile="false" basedir="${web.dir}" destfile="${build.dir}/${project.name}.war">
+            <webinf dir="${web.dir}/WEB-INF"/>
+            <!-- Other exclusions or inclusions as needed -->
+        </war>
+    </target>
 
-    
     <target name="build" depends="war"/>
 
 </project>
