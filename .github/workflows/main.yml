@@ -27,7 +27,10 @@ jobs:
 
       # Compile Java source files
       - name: Compile Java files
-        run: javac -d build/classes src/**/*.java
+        run: |
+          find src/ -name '*.java' > sources.txt
+          mkdir -p build/classes
+          javac -d build/classes @sources.txt
 
       # Resolve dependencies
       - name: Resolve dependencies
