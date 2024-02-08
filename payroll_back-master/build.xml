@@ -28,11 +28,11 @@
     </target>
 
     <target name="war" depends="compile">
-    <war destfile="${war.file}" webxml="payroll_back-master/web/WEB-INF">
-        <fileset dir="${web.dir}"/>
-        <classes dir="${classes.dir}"/>
-    </war>
-</target>
+        <war destfile="${war.file}" webxml="${web.dir}/WEB-INF/web.xml"> <!-- Corrected the path to web.xml -->
+            <fileset dir="${web.dir}"/>
+            <classes dir="${classes.dir}"/>
+        </war>
+    </target>
     
     <target name="build" depends="war"/>
 
