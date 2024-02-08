@@ -22,7 +22,7 @@ jobs:
       
     - name: Download Servlet API JAR
       run: |
-        mkdir lib
+        
         curl -o lib/servlet-api.jar https://repo1.maven.org/maven2/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar
 
     - name: Download JasperReports JAR
