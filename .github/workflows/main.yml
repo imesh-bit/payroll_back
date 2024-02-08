@@ -17,6 +17,8 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '8'
+        distribution: 'adopt' # Specify the distribution (e.g., adopt, zulu)
+        java-package: 'jdk'
       
     - name: Build with Ant
       run: ant build
