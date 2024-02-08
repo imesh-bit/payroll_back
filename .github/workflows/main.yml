@@ -48,6 +48,7 @@ jobs:
 
     - name: Compile Java source files
       run: javac -d classes -classpath "lib/*" @filtered_sources.txt
+      working-directory: payroll_back-master/src/java
 
     - name: Create WAR file
       run: jar -cvf your-web-app.war -C web .
