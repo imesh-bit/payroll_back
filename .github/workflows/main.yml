@@ -3,7 +3,7 @@ name: Java EE Build and Deploy
 on:
   push:
     branches:
-      - main  # Adjust the branch name if needed
+      - main
 
 jobs:
   build:
@@ -16,39 +16,27 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
-        java-version: '8'  # Adjust the Java version if needed
-        distribution: 'adopt'  # Specify the distribution, e.g., adopt, adopt-hotspot, adopt-openj9, etc.
+        java-version: '8'
+        distribution: 'adopt'
         
     - name: Find Java source files
       run: find payroll_back-master/src/java -name "*.java" > sources.txt
       
     - name: Filter Java source files
-      run: |
-        # Add your filtering logic here if needed
-        # For example, you can filter out certain files based on conditions
-        # This command simply copies all source files to the filtered_sources.txt file
-        cp sources.txt filtered_sources.txt
+      run: cp sources.txt filtered_sources.txt
         
     - name: Install dependencies
       run: |
         mkdir lib
-        # Download your dependencies
         curl -L -o lib/commons-io.jar https://repo1.maven.org/maven2/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar
         curl -L -o lib/commons-logging-1.1.1.jar https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar
-        curl -L -o lib/gson-2.3.1.jar https://repo1.maven.org/maven2/com/google/code/gson/gson/2.3.1/gson-2.3.1.jar
-        curl -L -o lib/json_simple-1.1.jar https://repo1.maven.org/maven2/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar
-        curl -L -o lib/mysql-connector-java-8.0.15.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.15/mysql-connector-java-8.0.15.jar
-        curl -L -o lib/jasperreports.jar https://repo1.maven.org/maven2/net/sf/jasperreports/jasperreports/6.17.0/jasperreports-6.17.0.jar
-        curl -L -o lib/jjwt.jar https://repo1.maven.org/maven2/io/jsonwebtoken/jjwt-jackson/0.11.2/jjwt-jackson-0.11.2.jar
-        # Download servlet-api.jar
-        curl -L -o lib/servlet-api.jar https://repo1.maven.org/maven2/javax/servlet/javax.servlet-api/4.0.1/javax.servlet-api-4.0.1.jar
+        # Add more dependency downloads as needed
         
     - name: Create classes directory
       run: mkdir classes
 
-
     - name: Compile Java source files
-      run: javac -d classes -classpath "lib/*" payroll_back-master/src/java/controllers/ControllerInventory.java payroll_back-master/src/java/controllers/ControllerOccupationalGroup.java payroll_back-master/src/java/controllers/ControllerAllowance.java payroll_back-master/src/java/controllers/ControllerAttendance.java payroll_back-master/src/java/controllers/ControllerDashboard.java payroll_back-master/src/java/models/ModelEmpTypes.java payroll_back-master/src/java/models/ModelAllowance.java payroll_back-master/src/java/models/ModelPayroll.java payroll_back-master/src/java/models/ModelInventory.java payroll_back-master/src/java/models/ModelUser.java payroll_back-master/src/java/models/ModelUserGroup.java payroll_back-master/src/java/models/ModelAttendance.java payroll_back-master/src/java/models/ModelBonus.java payroll_back-master/src/java/models/ModelSalaryAdvance.java payroll_back-master/src/java/models/ModelNoncashBenifit.java payroll_back-master/src/java/models/ModelCreateCust.java payroll_back-master/src/java/models/ModelBank.java payroll_back-master/src/java/models/ModelDivision.java payroll_back-master/src/java/models/ModelDesignation.java payroll_back-master/src/java/models/ModelDashBoard.java payroll_back-master/src/java/models/ModelCategory.java payroll_back-master/src/java/models/ModelLoans.java payroll_back-master/src/java/models/ModelAllowanceRequest.java payroll_back-master/src/java/models/ModelOccupationalGroup.java payroll_back-master/src/java/models/ModelEmployeeProfile.java payroll_back-master/src/java/models/ModelLogin.java payroll_back-master/src/java/models/ModelDeduction.java payroll_back-master/src/java/models/ModelSalaryMonth.java
+      run: javac -d classes -classpath "lib/*" @filtered_sources.txt
       working-directory: payroll_back-master/src/java
 
     - name: Create WAR file
