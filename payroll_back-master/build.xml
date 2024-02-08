@@ -11,6 +11,8 @@
     <!-- Define classpath -->
     <path id="classpath">
         <fileset dir="${lib.dir}" includes="*.jar"/>
+        <!-- Add Servlet API JAR to the classpath -->
+        <pathelement location="${lib.dir}/servlet-api.jar"/>
     </path>
 
     <!-- Define targets -->
