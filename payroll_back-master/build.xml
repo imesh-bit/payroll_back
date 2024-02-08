@@ -27,15 +27,16 @@
         <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" includeantruntime="false"/>
     </target>
 
-    <target name="war" depends="compile">
-    <war                                                                                                   
-      needxmlfile="false"                                                                                  
-      basedir="${web.dir}"                                                                             
-      destfile="${build.dir}/${project.name}.war">                                                      
-      <exclude name="WEB-INF/${build.dir}/**"/>                                                            
-      <exclude name="WEB-INF/src/**"/>                                                                     
-    </war>  
-    </target>
+     <target name="war" depends="compile">
+      <war
+      needxmlfile="false"
+      basedir="payroll_back-master/web/WEB-INF"
+      destfile="payroll_back-master/web/WEB-INF/web.xml">
+      <exclude name="WEB-INF/payroll_back-master/web/WEB-INF/**"/>
+      <exclude name="WEB-INF/src/**"/>
+      </war>  
+     </target>
+
     
     <target name="build" depends="war"/>
 
