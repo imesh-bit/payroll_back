@@ -27,15 +27,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: payroll_back-master
-          path: build/payroll_back-master.war 
-
-      - name: Report no files found
-        if: failure() && steps.create_build_dir.outcome == 'success'
-        run: echo "Warning:No files were found to upload."
-
-      - name: Report build failure
-        if: failure() && steps.create_build_dir.outcome != 'success'
-        run: echo "Build failed:No build directory created."
+          path: build/payroll_back-master.war
 
       # - name: Post-build actions (optional)
       #   # Add steps to deploy, run tests, etc. (use exit codes for error handling)
