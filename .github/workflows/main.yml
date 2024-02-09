@@ -26,8 +26,8 @@ jobs:
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: my-java-ee-project
-          path: my-java-ee-project.war
+          name: payroll_back-master
+          path: build/payroll_back-master.war 
 
       # - name: Post-build actions (optional)
       #   # Add steps to deploy, run tests, etc. (use exit codes for error handling)
