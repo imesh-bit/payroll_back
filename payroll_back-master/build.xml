@@ -30,7 +30,7 @@
 
     <target name="war" depends="compile">
     <war needxmlfile="false" basedir="${web.dir}" destfile="${build.dir}/${project.name}.war">
-        <fileset dir="${web.dir}">
+        <fileset dir="/home/runner/work/payroll_back/payroll_back/payroll_back-master/web"/>
             <include name="**/*"/>
             <exclude name="**/WEB-INF/**"/>
         </fileset>
