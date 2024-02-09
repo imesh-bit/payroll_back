@@ -29,6 +29,16 @@ jobs:
           name: payroll_back-master
           path: build/payroll_back-master.war
 
+      - name: Create build directory
+        run: mkdir -p build
+
+      - name: Archive artifacts
+        if: success()
+        uses: actions/upload-artifact@v2
+        with:
+          name: payroll_back-master
+          path: build/payroll_back-master.war
+
       # - name: Post-build actions (optional)
       #   # Add steps to deploy, run tests, etc. (use exit codes for error handling)
       #   run: |
