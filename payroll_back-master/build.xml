@@ -29,7 +29,7 @@
     </target>
 
    <target name="war" depends="compile">
-     <war needxmlfile="false" basedir="${web.dir}" destfile="${build.dir}/${project.name}.war">
+     <war needxmlfile="false" basedir="/home/runner/work/payroll_back/payroll_back/payroll_back-master/web" destfile="${build.dir}/${project.name}.war">
          <fileset dir="/home/runner/work/payroll_back/payroll_back/payroll_back-master/web">
              <include name="**/*"/>
              <exclude name="**/WEB-INF/**"/>
