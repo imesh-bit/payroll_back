@@ -29,16 +29,13 @@
     </target>
 
     <target name="war" depends="compile">
-        <war needxmlfile="false" basedir="${web.dir}" destfile="${build.dir}/${project.name}.war">
-            <fileset dir="${web.dir}">
-                <include name="**/*"/>
-                <exclude name="**/WEB-INF/**"/>
-            </fileset>
-            <fileset dir="${web.dir}/WEB-INF">
-                <include name="**/*.xml"/>
-            </fileset>
-        </war>
-    </target>
+    <war needxmlfile="false" basedir="${web.dir}" destfile="${build.dir}/${project.name}.war">
+        <fileset dir="${web.dir}">
+            <include name="**/*"/>
+            <exclude name="**/WEB-INF/**"/>
+        </fileset>
+    </war>
+  </target>
 
     <target name="build" depends="war"/>
 
