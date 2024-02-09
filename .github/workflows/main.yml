@@ -21,6 +21,7 @@ jobs:
 
       - name: Build with Ant
         run: ant build
+        working-directory: payroll_back-master
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
