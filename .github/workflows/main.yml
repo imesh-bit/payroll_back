@@ -37,7 +37,8 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: payroll_back-master
-          path: build/payroll_back-master.war
+          path: /home/runner/work/payroll_back/payroll_back/payroll_back-master/build/payroll_back-master.war
+
 
       # - name: Post-build actions (optional)
       #   # Add steps to deploy, run tests, etc. (use exit codes for error handling)
