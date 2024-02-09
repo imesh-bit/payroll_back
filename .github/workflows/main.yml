@@ -1,4 +1,4 @@
-name: Java EE Build Pipeline
+name: java-ee-build-pipeline
 
 on:
   push:
@@ -8,25 +8,29 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-      
-    - name: Setup Java
-      uses: actions/setup-java@v2
-      with:
-        java-version: '8'
-        distribution: 'adopt' # Specify the distribution (e.g., adopt, zulu)
-        java-package: 'jdk'
-      
-      
-    - name: Build with Ant
-      run: ant build
-      working-directory: payroll_back-master
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Archive artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: my-java-ee-project
-        path: my-java-ee-project/my-java-ee-project.war
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt' # Specify the distribution (e.g., adopt, zulu)
+          java-package: 'jdk'
+
+      - name: Build with Ant
+        run: ant build
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-java-ee-project
+          path: my-java-ee-project.war
+
+      - name: Post-build actions (optional)
+        # Add steps to deploy, run tests, etc. (use exit codes for error handling)
+        run: |
+          # Example: Deploy to a server
+          scp my-java-ee-project.war user@server:deployments/
+
