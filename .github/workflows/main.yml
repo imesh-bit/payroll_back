@@ -29,9 +29,9 @@ jobs:
           name: my-java-ee-project
           path: my-java-ee-project.war
 
-      - name: Post-build actions (optional)
-        # Add steps to deploy, run tests, etc. (use exit codes for error handling)
-        run: |
-          # Example: Deploy to a server
-          scp my-java-ee-project.war user@server:deployments/
+      # - name: Post-build actions (optional)
+      #   # Add steps to deploy, run tests, etc. (use exit codes for error handling)
+      #   run: |
+      #     # Example: Deploy to a server
+      #     scp my-java-ee-project.war user@server:deployments/
 
