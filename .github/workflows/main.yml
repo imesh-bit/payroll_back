@@ -32,18 +32,12 @@ jobs:
       - name: Create build directory
         run: mkdir -p build
 
-      - name: Archive artifacts with commit ID
-        if: success()
-        run: |
-         mv payroll_back-master.war build/payroll_back-master-$(git rev-parse --short HEAD).war
-        shell: bash
-
-      - name: Upload artifacts
+      - name: Archive artifacts
         if: success()
         uses: actions/upload-artifact@v2
         with:
           name: payroll_back-master
-          path: build/payroll_back-master-*.war
+          path: /home/runner/work/payroll_back/payroll_back/payroll_back-master/build/payroll_back-master.war
 
 
       # - name: Post-build actions (optional)
