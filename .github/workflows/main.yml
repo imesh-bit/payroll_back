@@ -39,7 +39,7 @@ jobs:
         run: ssh -i ~/.ssh/id_rsa azureuser@4.213.119.32 "ls /var/lib/tomcat9/webapps/"
 
       - name: Copy Build Files to Server
-        run: scp -r -i ~/.ssh/id_rsa payroll_back-master/build/payroll_back-master.war azureuser@4.213.119.32:/var/lib/tomcat9/webapps/
+        run: scp -r -i ~/.ssh/id_rsa payroll_back-master/* azureuser@4.213.119.32:/var/lib/tomcat9/webapps/
 
       - name: Deploy to Server
         run: ssh -i ~/.ssh/id_rsa azureuser@4.213.119.32 "echo 'Hello from GitHub Actions!'"
