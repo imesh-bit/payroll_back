@@ -16,6 +16,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'  # Use a suitable Java version for your application
+          distribution: 'adopt'
 
       - name: Build with Ant
         run: ant build
