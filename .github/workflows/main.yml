@@ -15,9 +15,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v2
         with:
-          java-version: '8'
-          distribution: 'adopt' # Specify the distribution (e.g., adopt, zulu)
-          java-package: 'jdk'
+          java-version: '11'  # Use a suitable Java version for your application
 
       - name: Build with Ant
         run: ant build
@@ -27,21 +25,26 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: payroll_back-master
-          path: build/payroll_back-master.war
+          path: payroll_back-master/build/payroll_back-master.war
 
-      - name: Create build directory
-        run: mkdir -p build
-
-      - name: Archive artifacts
-        if: success()
-        uses: actions/upload-artifact@v2
+      - name: Stop Existing Java Process
+        uses: appleboy/ssh-action@master
         with:
-          name: payroll_back-master
-          path: /home/runner/work/payroll_back/payroll_back/payroll_back-master/build/payroll_back-master.war
+          host: 4.213.119.32
+          username: azureuser
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            sudo systemctl stop tomcat9
 
+      - name: Copy Build Files to Server
+        run: |
+          scp -i ${{ secrets.VM_SSH_KEY }} payroll_back-master/build/payroll_back-master.war azureuser@4.213.119.32:/var/lib/tomcat9/webapps
 
-      # - name: Post-build actions (optional)
-      #   # Add steps to deploy, run tests, etc. (use exit codes for error handling)
-      #   run: |
-      #     # Example: Deploy to a server
-      #     scp my-java-ee-project.war user@server:deployments/
+      - name: Start New Java Process
+        uses: appleboy/ssh-action@master
+        with:
+          host: 4.213.119.32
+          username: azureuser
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            sudo systemctl start tomcat9
