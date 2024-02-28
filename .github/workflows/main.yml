@@ -37,9 +37,9 @@ jobs:
           script: |
             sudo systemctl stop tomcat9
 
-      - name: Copy Build Files to Server
+      - name: Copy build files to server
         run: |
-          scp -i ${{ secrets.SSH_PRIVATE_KEY }} payroll_back-master/build/payroll_back-master.war azureuser@4.213.119.32:/var/lib/tomcat9/webapps
+          scp -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} payroll_back-master/build/payroll_back-master.war azureuser@4.213.119.32:/var/lib/tomcat9/webapps
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
