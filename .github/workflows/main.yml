@@ -28,30 +28,18 @@ jobs:
           name: payroll_back-master
           path: payroll_back-master/build/payroll_back-master.war
 
-      - name: Stop Existing Java Process
-        uses: appleboy/ssh-action@master
-        with:
-          host: 4.213.119.32
-          username: azureuser
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            sudo systemctl stop tomcat9
+      - name: Use SSH private key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 4.213.119.32 >> ~/.ssh/known_hosts
 
-      - name: Copy build files to server
-        uses: appleboy/ssh-action@master
-        with:
-          host: 4.213.119.32
-          username: azureuser
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22  # Specify if your SSH server uses a non-standard port
-          script: |
-            scp -o StrictHostKeyChecking=no payroll_back-master/build/payroll_back-master.war azureuser@4.213.119.32:/var/lib/tomcat9/webapps
+      - name: Debug SSH Connection
+        run: ssh -i ~/.ssh/id_rsa azureuser@4.213.119.32 "ls /var/lib/tomcat9/webapps/"
 
-      - name: Start New Java Process
-        uses: appleboy/ssh-action@master
-        with:
-          host: 4.213.119.32
-          username: azureuser
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            sudo systemctl start tomcat9
+      - name: Copy Build Files to Server
+        run: scp -r -i ~/.ssh/id_rsa dist/final_project_web/* azureuser@4.213.119.32:/var/lib/tomcat9/webapps/
+
+      - name: Deploy to Server
+        run: ssh -i ~/.ssh/id_rsa azureuser@4.213.119.32 "echo 'Hello from GitHub Actions!'"
