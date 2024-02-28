@@ -47,6 +47,7 @@ jobs:
           username: azureuser
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            ssh -i "${{ secrets.SSH_PRIVATE_KEY }}"
             scp -i "${{ secrets.SSH_PRIVATE_KEY }}" payroll_back-master/build/payroll_back-master.war azureuser@4.213.119.32:/var/lib/tomcat9/webapps
 
       - name: Start New Java Process
