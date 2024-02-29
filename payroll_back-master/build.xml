@@ -1,5 +1,5 @@
 <project name="payroll_back-master" default="build" basedir=".">
-    
+
     <!-- Define properties -->
     <property name="src.dir" value="src/java"/>
     <property name="web.dir" value="payroll_back-master/web"/>
@@ -8,14 +8,10 @@
     <property name="war.file" value="my-java-ee-project.war"/>
     <property name="lib.dir" value="lib"/>
     <property name="project.name" value="payroll_back-master"/>
-       
+    
     <!-- Define classpath -->
     <path id="classpath">
         <fileset dir="${lib.dir}" includes="*.jar"/>
-        <!-- Add Servlet API JAR to the classpath -->
-        <pathelement location="${lib.dir}/servlet-api.jar"/>
-        <!-- Add jjwt JAR to the classpath -->
-        <pathelement location="${lib.dir}/jjwt-0.12.0.jar"/>
     </path>
 
     <!-- Define targets -->
@@ -29,14 +25,13 @@
     </target>
 
    <target name="war" depends="compile">
-     <war needxmlfile="false" basedir="/home/runner/work/payroll_back/payroll_back/payroll_back-master/web" destfile="${build.dir}/${project.name}.war">
-         <fileset dir="/home/runner/work/payroll_back/payroll_back/payroll_back-master/web">
+     <war needxmlfile="false" basedir="${web.dir}" destfile="${build.dir}/${project.name}.war">
+         <fileset dir="${web.dir}">
              <include name="**/*"/>
              <exclude name="**/WEB-INF/**"/>
          </fileset>
     </war>
   </target>
-
 
     <target name="build" depends="war"/>
 
