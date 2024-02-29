@@ -22,6 +22,12 @@ jobs:
         run: ant build
         working-directory: payroll_back-master
 
+      - name: Upload build log
+        uses: actions/upload-artifact@v2
+        with:
+         name: build-log
+         path: build.log
+
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
